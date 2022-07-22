@@ -1,6 +1,7 @@
-import { BaseEntity } from "src/@modules/base/entities/base.entity";
+import { BaseEntity } from "src/@application/base/entities/base.entity";
 import { Consumer } from "src/@modules/consumers/entities/consumer.entity";
 import { InvoiceProfile } from "src/@modules/invoices/entities/invoiceProfile.entity";
+import { Product } from "src/@modules/products/entities/product.entity";
 import { Entity, Column, OneToMany } from "typeorm";
 import { USER_STATUS, USER_TYPE } from "../enums";
 
@@ -48,4 +49,7 @@ export class User extends BaseEntity {
 
   @OneToMany((type) => InvoiceProfile, (invoiceProfile) => invoiceProfile.user)
   invoiceProfiles?: InvoiceProfile[];
+
+  @OneToMany((type) => Product, (product) => product.user)
+  products?: Product[];
 }

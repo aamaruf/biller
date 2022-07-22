@@ -1,4 +1,4 @@
-import { BaseEntity } from "src/@modules/base/entities/base.entity";
+import { BaseEntity } from "src/@application/base/entities/base.entity";
 import { Consumer } from "src/@modules/consumers/entities/consumer.entity";
 import { User } from "src/@modules/users/entities/user.entity";
 import { consumers } from "stream";

@@ -1,4 +1,4 @@
-import { BaseEntity } from "src/@modules/base/entities/base.entity";
+import { BaseEntity } from "src/@application/base/entities/base.entity";
 import { User } from "src/@modules/users/entities/user.entity";
 import { Entity, Column, ManyToOne } from "typeorm";
 import { USER_STATUS, USER_TYPE } from "../enums";

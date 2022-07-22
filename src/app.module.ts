@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConsumerModule } from "./@modules/consumers/consumer.module";
 import { InvoiceModule } from "./@modules/invoices/invoice.module";
+import { ProductModule } from "./@modules/products/product.module";
 import { UserModule } from "./@modules/users/user.module";
 
 @Module({
@@ -9,6 +10,7 @@ import { UserModule } from "./@modules/users/user.module";
     UserModule,
     ConsumerModule,
     InvoiceModule,
+    ProductModule,
     TypeOrmModule.forRoot({
       type: "postgres",
       host: "localhost",
