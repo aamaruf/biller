@@ -1,7 +1,10 @@
 ## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
+```
+ Biller is a simple REST API service to
+ register clients & services provide by the user to
+ automatically send the clients subscription invoices through
+ Email / Mobile in every subscription period.
+```
 ## Installation
 
 ```bash
@@ -13,17 +16,13 @@ $ yarn install
 ```bash
 # development watch mode
 $ yarn start
-
-## Support
-
-Nest is an MIT-licensed open source project.
+```
 
 ## Stay in touch
-
-- Author - Abdullah Al Maruf
-
-
-## License
-
-Nest is [MIT licensed](LICENSE).
 ```
+
+```
+- Author - Abdullah Al Maruf
+- [LinkedIn](https://linkedin.com/in/aamaruf131)
+- [Facebook](https://facebook.com/aamaruf131)
+- [Twitter](https://twitter.com/aamaruf131)
