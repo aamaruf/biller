@@ -1,0 +1,11 @@
+export enum USER_TYPE {
+  SUPER_ADMIN = "SUPER_ADMIN",
+  SERVICE_PROVIDER = "SERVICE_PROVIDER",
+  SERVICE_RECEIVER = "SERVICE_RECEIVER",
+}
+
+export enum USER_STATUS {
+  ACTIVE = "Active",
+  INACTIVE = "Inactive",
+  DISABLED = "Disabled",
+}
