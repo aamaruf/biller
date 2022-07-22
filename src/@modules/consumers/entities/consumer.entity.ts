@@ -1,6 +1,7 @@
 import { BaseEntity } from "src/@application/base/entities/base.entity";
+import { ProductSubsCription } from "src/@modules/products/entities/productSubscription.entity";
 import { User } from "src/@modules/users/entities/user.entity";
-import { Entity, Column, ManyToOne } from "typeorm";
+import { Entity, Column, ManyToOne, OneToMany } from "typeorm";
 import { USER_STATUS, USER_TYPE } from "../enums";
 
 @Entity("consumers")
@@ -37,4 +38,10 @@ export class Consumer extends BaseEntity {
 
   @ManyToOne((type) => User, (user) => user.consumers)
   user?: User;
+
+  @OneToMany(
+    (type) => ProductSubsCription,
+    (productSubscription) => productSubscription.consumer
+  )
+  productSubscriptions?: ProductSubsCription[];
 }

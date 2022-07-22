@@ -1,5 +1,6 @@
 import { BaseEntity } from "src/@application/base/entities/base.entity";
 import { Consumer } from "src/@modules/consumers/entities/consumer.entity";
+import { ProductSubsCription } from "src/@modules/products/entities/productSubscription.entity";
 import { User } from "src/@modules/users/entities/user.entity";
 import { consumers } from "stream";
 import { Entity, Column, OneToMany, ManyToOne } from "typeorm";
@@ -32,4 +33,10 @@ export class InvoiceProfile extends BaseEntity {
 
   @ManyToOne((type) => User, (user) => user.invoiceProfiles)
   user?: User;
+
+  @OneToMany(
+    (type) => ProductSubsCription,
+    (productSubscription) => productSubscription.invoiceProfile
+  )
+  productSubscriptions?: ProductSubsCription[];
 }
