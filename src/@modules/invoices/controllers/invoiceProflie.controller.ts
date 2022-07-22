@@ -1,7 +1,8 @@
 import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { InvoiceProfileCreateDTO } from "../dtos/invoice-profile-create.dto";
 import { InvoiceProfileService } from "../services/invoiceProfile.service";
-
+import {ApiTags } from '@nestjs/swagger';
+@ApiTags('Invoice Profile')
 @Controller("invoice-profiles")
 export class InvoiceProfileController {
   constructor(private readonly invoiceProfileService: InvoiceProfileService) {}
