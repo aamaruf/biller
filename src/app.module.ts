@@ -19,7 +19,7 @@ import { UserModule } from "./@modules/users/user.module";
       password: "737467",
       database: "biller_db",
       autoLoadEntities: true,
-      logging: true,
+      logging: false,
       synchronize: true,
     }),
   ],
