@@ -1,0 +1,33 @@
+export enum OrderOptions {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
+export enum RequestMethods {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  PATCH = 'PATCH',
+  DELETE = 'DELETE',
+}
+
+export enum AppPermissionTypes {
+  VIEW = 'View',
+  CREATE = 'Create',
+  MODIFY = 'Modify',
+  DELETE = 'Delete',
+}
+
+// expuserId
+
+export enum AppUITypes {
+  AVATAR_LIST = "AVATAR_LIST",
+  LIVE_LIST = "LIVE_LIST",
+  SHOP_LIST = "SHOP_LIST",
+  CAMPAIGN_BANNERS = "CAMPAIGN_BANNERS",
+  DYNAMIC_PRODUCT_CATEGORY = "DYNAMIC_PRODUCT_CATEGORY",
+  DYNAMIC_PRODUCT_CATEGORY_LIST = "DYNAMIC_PRODUCT_CATEGORY_LIST",
+  CAMPAIGN_PRODUCT_LIST = "CAMPAIGN_PRODUCT_LIST",
+  CATEGORY_PRODUCT_LIST = "CATEGORY_PRODUCT_LIST",
+  SHOP_PRODUCT_LIST = "SHOP_PRODUCT_LIST",
+}

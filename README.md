@@ -22,7 +22,7 @@ $ yarn start
 ```
 
 ```
-- Author - Abdullah Al Maruf
-- [LinkedIn](https://linkedin.com/in/aamaruf131)
-- [Facebook](https://facebook.com/aamaruf131)
-- [Twitter](https://twitter.com/aamaruf131)
+- Author - [Abdullah Al Maruf](https://mailto:aamaruf131@gmail.com)
+- LinkedIn - [@aamaruf131](https://linkedin.com/in/aamaruf131)
+- Facebook - [@aamaruf131](https://facebook.com/aamaruf131)
+- Twitter - [@aamaruf131](https://twitter.com/aamaruf131)

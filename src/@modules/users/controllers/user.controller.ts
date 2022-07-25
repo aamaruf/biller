@@ -1,24 +1,45 @@
 import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { ApiBody, ApiTags } from "@nestjs/swagger";
 import { UserCreateDTO } from "../dtos/user-create.dto";
 import { UserService } from "../services/user.service";
-import { ApiTags } from "@nestjs/swagger";
 @ApiTags("User")
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
-  @Get()
-  getAll(): Promise<any> {
-    return this.userService.getAll();
-  }
+  // @Get()
+  // getAll(): Promise<any> {
+  //   return this.userService.getAll();
+  // }
+
+  // @Get(":id")
+  // getOne(@Param("id") id: string): Promise<any> {
+  //   return this.userService.getByIdFromDB(id);
+  // }
 
   @Get(":id")
-  getOne(@Param("id") id: string): Promise<any> {
-    return this.userService.getOne(id);
+  async findOne(
+    @Param("id") id: string,
+    // @RequestOptions() reqOptions: IOptions
+  ): Promise<any> {
+    return this.userService.getByIdFromDB(id);
+
   }
 
+
   @Post()
-  createOne(@Body() data: UserCreateDTO): Promise<any> {
-    return this.userService.createOne(data);
+  @ApiBody({ type: UserCreateDTO })
+  async insert(
+    @Body() reqPayloads: any
+  ): Promise<any> {
+    console.log("🚀🚀🚀🚀🚀 ============ reqPayloads", reqPayloads)
+    return this.userService.insertIntoDB(reqPayloads);
   }
+
+
+  // @Post()
+  // createOne(@Body() data: UserCreateDTO): Promise<any> {
+  //   return this.userService.createOne(data);
+  // }
 }
+

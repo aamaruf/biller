@@ -1,5 +1,6 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { RequestModifierMiddleware } from "./@application/middleware/requestModifier.middleware";
 import { ConsumerModule } from "./@modules/consumers/consumer.module";
 import { InvoiceModule } from "./@modules/invoices/invoice.module";
 import { ProductModule } from "./@modules/products/product.module";
@@ -24,4 +25,8 @@ import { UserModule } from "./@modules/users/user.module";
     }),
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(RequestModifierMiddleware).forRoutes('*');
+  }
+}

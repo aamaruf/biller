@@ -1,23 +1,25 @@
+import { createTypeORMFindByIdOptions } from "src/@application/utils/service.utils";
 import {
+  FindOneOptions,
   InsertResult,
-  Repository,
+  Repository
 } from "typeorm";
 
-export abstract class BaseService<Entity> extends Repository<Entity> {
+export abstract class BaseService<Entity>  {
   repository: Repository<Entity>;
   // dataSource: DataSource;
   entityName: string;
 
-  // constructor(repository: Repository<Entity>, entityName: string) {
-  //   super();
-  //   this.repository = repository;
-  //   this.entityName = entityName;
-  // }
+  constructor(repository: Repository<Entity>, entityName: string) {
+    // super();
+    this.repository = repository;
+    this.entityName = entityName;
+  }
 
   async insertIntoDB(payload: Entity): Promise<Entity> {
     try {
       const result: InsertResult = await this.repository.insert(payload);
-      return this.repository.findOne(result.identifiers[0].id).catch((err) => {
+      return this.repository.findOne({ where: { id: result.identifiers[0].id } } as any).catch((err) => {
         throw new Error(err?.detail);
       });
     } catch (error) {
@@ -64,23 +66,24 @@ export abstract class BaseService<Entity> extends Repository<Entity> {
     }
   }
 
-  // async getByIdFromDB(id: string, options?: any): Promise<Entity> {
-  //   try {
-  //     const opts: FindOneOptions = await createTypeORMFindByIdOptions(
-  //       id,
-  //       options
-  //     );
+  async getByIdFromDB(id: string, options?: any): Promise<Entity> {
+    console.log("🚀🚀🚀🚀🚀 ============ getByIdFromDB ============ id", id)
+    try {
 
-  //     return await this.repository.findOne(opts).catch((err) => {
-  //       // this.baseLogger.error(err);
+      const opts: FindOneOptions = await createTypeORMFindByIdOptions(
+        id,
+        options
+      );
+      console.log("🚀🚀🚀🚀🚀 ============ getByIdFromDB ============ opts", opts)
 
-  //       throw new Error(err?.name);
-  //     });
-  //     // return data || new NotFoundException("no data found with this id 😭");
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // }
+      return await this.repository.findOne(opts).catch((err) => {
+        throw new Error(err?.name);
+      });
+      // return data || new NotFoundException("no data found with this id 😭");
+    } catch (error) {
+      return error;
+    }
+  }
 
   // async getByCriteriaFromDB(criteria: Entity, options: any): Promise<Entity> {
   //   try {
@@ -154,3 +157,4 @@ export abstract class BaseService<Entity> extends Repository<Entity> {
   //   }
   // }
 }
+
