@@ -1,5 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { isEmail, isNumber } from "class-validator";
+import { isUsername } from "src/@application/utils/util.function";
 import { Repository } from "typeorm";
 import { UserCreateDTO } from "../dtos/user-create.dto";
 import { User } from "../entities/user.entity";
@@ -10,6 +12,62 @@ export class UserService {
     @InjectRepository(User)
     private repository: Repository<User>
   ) {}
+
+  async checkIfUserExist(identifier: string): Promise<User | any> {
+    try {
+      let isUserExist = undefined;
+
+      const _selects = [
+        "id",
+        "phoneNumber",
+        "email",
+        "name",
+        "password",
+        "avatar",
+        "name",
+        "type",
+      ];
+
+      if (isNumber(identifier)) {
+        isUserExist = await this.repository.find({
+          where: { phoneNumber: identifier },
+          select: [
+            "id",
+            "phoneNumber",
+            "email",
+            "name",
+            "password",
+            "avatar",
+            "name",
+            "type",
+          ],
+        });
+      } else if (isEmail(identifier)) {
+        isUserExist = await this.repository.find({
+          where: { email: identifier },
+          select: [
+            "id",
+            "phoneNumber",
+            "email",
+            "name",
+            "password",
+            "avatar",
+            "name",
+            "type",
+          ],
+        });
+      } else {
+        return false;
+      }
+
+      if (isUserExist) {
+        return isUserExist;
+      }
+      return false;
+    } catch (error) {
+      return false;
+    }
+  }
 
   async getOne(id: string): Promise<User> {
     try {
