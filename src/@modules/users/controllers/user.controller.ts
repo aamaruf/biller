@@ -22,8 +22,8 @@ export class UserController {
     @Param("id") id: string,
     // @RequestOptions() reqOptions: IOptions
   ): Promise<any> {
-    return this.userService.getByIdFromDB(id);
-
+    const res = await this.userService.getByIdFromDB(id);
+    return res
   }
 
 

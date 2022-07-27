@@ -1,3 +1,4 @@
+import { NotFoundException } from "@nestjs/common";
 import { createTypeORMFindByIdOptions } from "src/@application/utils/service.utils";
 import {
   FindOneOptions,
@@ -5,7 +6,7 @@ import {
   Repository
 } from "typeorm";
 
-export abstract class BaseService<Entity>  {
+export abstract class BaseService<Entity> {
   repository: Repository<Entity>;
   // dataSource: DataSource;
   entityName: string;
@@ -67,19 +68,17 @@ export abstract class BaseService<Entity>  {
   }
 
   async getByIdFromDB(id: string, options?: any): Promise<Entity> {
-    console.log("🚀🚀🚀🚀🚀 ============ getByIdFromDB ============ id", id)
     try {
 
       const opts: FindOneOptions = await createTypeORMFindByIdOptions(
         id,
         options
       );
-      console.log("🚀🚀🚀🚀🚀 ============ getByIdFromDB ============ opts", opts)
 
-      return await this.repository.findOne(opts).catch((err) => {
+      const data: any = await this.repository.findOne(opts).catch((err) => {
         throw new Error(err?.name);
       });
-      // return data || new NotFoundException("no data found with this id 😭");
+      return data || new NotFoundException("no data found with this id 😭").getResponse();
     } catch (error) {
       return error;
     }

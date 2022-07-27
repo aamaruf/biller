@@ -1,6 +1,7 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { RequestModifierMiddleware } from "./@application/middleware/requestModifier.middleware";
+import { AuthModule } from "./@modules/auth/auth.module";
 import { ConsumerModule } from "./@modules/consumers/consumer.module";
 import { InvoiceModule } from "./@modules/invoices/invoice.module";
 import { ProductModule } from "./@modules/products/product.module";
@@ -8,6 +9,7 @@ import { UserModule } from "./@modules/users/user.module";
 
 @Module({
   imports: [
+    AuthModule,
     UserModule,
     ConsumerModule,
     InvoiceModule,

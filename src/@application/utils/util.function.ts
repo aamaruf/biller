@@ -1,4 +1,3 @@
-import { BadRequestException } from "@nestjs/common";
 import { addYears, subYears } from "date-fns";
 import * as FS from "fs";
 import * as moment from "moment";
@@ -14,14 +13,7 @@ import {
 } from "typeorm";
 import { IProperties } from "../interfaces";
 
-
-
 export const asyncForEach = async (array: any[], callback: any) => {
-  if (!Array.isArray(array)) {
-    throw new BadRequestException(
-      `asyncForEach ~ Expected an array, instead got ${typeof array}`
-    );
-  }
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array);
   }
@@ -72,6 +64,64 @@ export const reverseWords = async (s: any) => {
     right--;
   }
   return arr.join(" ");
+};
+
+
+export const isNumber = (phoneNumber: string) => {
+  try {
+    const regex = /^\+?01[3-9][0-9]{8}\b$/g;
+    let validNumber: any;
+    const number = phoneNumber.match(regex);
+
+    if (number) {
+      number.map((number: any) => {
+        validNumber = number.slice(number.length - 11, number.length);
+      });
+      return validNumber;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
+};
+export const isEmail = (email: string) => {
+  try {
+    const regex =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let validEmail: any;
+    const _email = email.match(regex);
+
+    if (_email.length) {
+      validEmail = _email[0];
+      return validEmail;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
+};
+
+export function gen6digitOTP() {
+  return Math.floor(1000 + Math.random() * 9000);
+}
+
+export const isUsername = (username: string) => {
+  try {
+    const regex = /^[a-zA-Z0-9]+$/;
+    let validUsername: any;
+    const _username = username.match(regex);
+
+    if (_username.length) {
+      validUsername = _username[0];
+      return validUsername;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
 };
 
 export const parseObjectToArray = async (obj: any) => {

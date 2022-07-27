@@ -168,18 +168,12 @@ export const createTypeORMFindByIdOptions = async (
   options: IOptions
 ): Promise<FindOneOptions> => {
   const opts: FindOneOptions = {};
-
   opts.where = typeof id === "string" ? { id } : id;
-  console.log("🚀🚀🚀🚀🚀 ============ opts", opts)
-
   if (options?.selects && options?.selects?.length !== 1) {
     opts.select = options.selects;
   }
-
   if (options?.relations && options?.relations.length > 0) {
     opts.relations = options.relations;
   }
-  console.log("🚀🚀🚀🚀🚀 ============ opts", opts)
-
   return opts;
 };
