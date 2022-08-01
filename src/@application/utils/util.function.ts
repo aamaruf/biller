@@ -168,8 +168,8 @@ export function toNumber(value: string): number {
   return parseInt(value, 10);
 }
 
-export function toBool(value: string): boolean {
-  return value === "true";
+export function toBool(value: string | boolean): boolean {
+  return value === "true" || true;
 }
 
 export function convertToBool(value: any): boolean {

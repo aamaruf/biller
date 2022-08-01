@@ -25,7 +25,7 @@ export class MailHelper {
         text: data.body,
       };
       // send mail with defined transport object
-      const myPromise = new Promise((resolve, reject) => {
+      const myPromise = await new Promise((resolve, reject) => {
         transporter.sendMail(mailOptions, (error: any) => {
           if (error) {
             reject(error);

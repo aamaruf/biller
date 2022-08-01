@@ -22,6 +22,6 @@ async function bootstrap() {
 
   await app.listen(ENV.PORT);
   app.setGlobalPrefix(ENV.API_PREFIX);
-  console.log(`\nBiller running on port ==>`, await app.getUrl(), `\n`);
+  console.log(`\nBiller running on port ==>`, await app.getUrl() + '/api', `\n`);
 }
 bootstrap();

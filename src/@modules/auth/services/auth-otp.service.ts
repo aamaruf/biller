@@ -1,15 +1,16 @@
 import {
   BadRequestException,
   Injectable,
-  NotFoundException,
+  NotFoundException
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import {
   gen6digitOTP,
   isEmail,
   isNumber,
-  toBool,
+  toBool
 } from "src/@application/utils/util.function";
+import { MailHelper } from "src/@modules/mail/helpers/mail.helper";
 import { User } from "src/@modules/users/entities/user.entity";
 import { UserService } from "src/@modules/users/services/user.service";
 import { Repository } from "typeorm";
@@ -20,11 +21,12 @@ import { AuthOTP } from "../entities/auth-otp.entity";
 
 @Injectable()
 export class AuthOTPService {
+  mailHelper = new MailHelper();
   constructor(
     @InjectRepository(AuthOTP)
     private repository: Repository<AuthOTP>,
-    private userService:UserService
-  ) {}
+    private userService: UserService
+  ) { }
 
   async sendOtpToPhoneNumber(payload: SendOtpToPhoneDTO, sms?: boolean) {
     try {
@@ -91,11 +93,15 @@ export class AuthOTPService {
         if (!sms) {
           return response;
         } else {
-          // await this.messageAnalyticaService.sendOTP({
-          //   smsbody: `Your OTP Code is ${otp.toString()}.Thanks for using Biller.`,
-          //   recipient: payload.phoneNumber,
-          // });
-          return response;
+          const res = await this.mailHelper.Mail({ email: payload.email, subject: 'Biller OTP Verification', body: `Your OTP Code is <b>${otp.toString()}</b>. Thanks for using Biller.` });
+          if (res === 200) {
+            return {
+              success: true,
+              message: `OTP Sent to ${payload.email}`
+            }
+          }
+          else
+            return res
         }
       } catch (error) {
         console.log(error);
@@ -146,15 +152,17 @@ export class AuthOTPService {
   }
 
   async verifyOtpForPhoneNumber(payload: VerifyOtpDTO) {
-    let isExist:any;
-    if(payload?.email && isEmail(payload.email)){
-    isExist = await this.repository.findOne({
-      where: { phoneNumber: payload.phoneNumber, otp: payload.otp } as any,
-    })};
-    if(payload?.phoneNumber && isNumber(payload.phoneNumber)){
-    isExist = await this.repository.findOne({
-      where: { phoneNumber: payload.phoneNumber, otp: payload.otp } as any,
-    })};
+    let isExist: any;
+    if (payload?.email && isEmail(payload.email)) {
+      isExist = await this.repository.findOne({
+        where: { phoneNumber: payload.phoneNumber, otp: payload.otp } as any,
+      })
+    };
+    if (payload?.phoneNumber && isNumber(payload.phoneNumber)) {
+      isExist = await this.repository.findOne({
+        where: { phoneNumber: payload.phoneNumber, otp: payload.otp } as any,
+      })
+    };
 
     if (!isExist) {
       throw new NotFoundException("Invalid OTP");
