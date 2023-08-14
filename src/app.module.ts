@@ -6,6 +6,7 @@ import { ConsumerModule } from "./@modules/consumers/consumer.module";
 import { InvoiceModule } from "./@modules/invoices/invoice.module";
 import { ProductModule } from "./@modules/products/product.module";
 import { UserModule } from "./@modules/users/user.module";
+import { ENV } from "./ENV";
 
 @Module({
   imports: [
@@ -15,15 +16,15 @@ import { UserModule } from "./@modules/users/user.module";
     InvoiceModule,
     ProductModule,
     TypeOrmModule.forRoot({
-      type: "postgres",
-      host: "localhost",
-      port: 5432,
-      username: "reshop",
-      password: "737467",
-      database: "biller_db",
+      type: ENV.TYPEORM_CONNECTION as any,
+      host: ENV.TYPEORM_HOST,
+      port: ENV.TYPEORM_PORT as any,
+      username: ENV.TYPEORM_USERNAME,
+      password: ENV.TYPEORM_PASSWORD,
+      database: ENV.TYPEORM_DATABASE,
       autoLoadEntities: true,
-      logging: false,
-      synchronize: true,
+      logging: ENV.TYPEORM_LOGGING as any,
+      synchronize: ENV.TYPEORM_SYNCHRONIZE as any,
     }),
   ],
 })

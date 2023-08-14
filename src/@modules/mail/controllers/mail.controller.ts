@@ -18,8 +18,7 @@ export class MailController {
   @Post('/send')
   async send(@Body() data: MailSendDto): Promise<any> {
     try {
-      await this.mailHelper.Mail(data);
-      return { message: "Success" };
+      return await this.mailHelper.Mail(data);
     } catch (error) {
       return error;
     }

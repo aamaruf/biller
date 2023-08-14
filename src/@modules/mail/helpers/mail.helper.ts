@@ -33,6 +33,7 @@ export class MailHelper {
           resolve(200);
         });
       });
+      console.log("🚀 ~  ~ MailHelper ~ sendMail status ~:", myPromise)
       return myPromise;
     } catch (error) {
       return error;
